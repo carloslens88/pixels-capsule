@@ -27,7 +27,7 @@ const translations = {
       shareCopy: "Copiar enlace",
       shareCopied: "¡Copiado!",
       toastFirstOfCountry: "🎉 ¡Eres el primer comprador de {flag} {country}!",
-      charityBanner: "💚 El 30% de cada compra se destina a las víctimas del terremoto en Venezuela 🇻🇪",
+      charityBanner: "💚 El 30% de cada compra se dona a las víctimas del terremoto en Venezuela y Colombia, para ayudar a reconstruir lo que se perdió. 🇻🇪🇨🇴",
       salesComingSoon: "🚧 Las compras abren muy pronto. Ya puedes explorar el muro — vuelve en unos días para dejar tu marca.",
     },
     detail: {
@@ -150,7 +150,7 @@ const translations = {
       shareCopy: "Copy link",
       shareCopied: "Copied!",
       toastFirstOfCountry: "🎉 You're the first buyer from {flag} {country}!",
-      charityBanner: "💚 30% of every purchase goes to earthquake relief for Venezuela 🇻🇪",
+      charityBanner: "💚 30% of every purchase is donated to earthquake relief for Venezuela and Colombia, helping rebuild what was lost. 🇻🇪🇨🇴",
       salesComingSoon: "🚧 Purchases open very soon. You can already explore the wall — check back in a few days to leave your mark.",
     },
     detail: {
