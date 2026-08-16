@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El Muro // 2026 — One Million Pixels</title>
+  <meta name="description" content="Compra un píxel por 1€ en El Muro // 2026: deja tu emoji, mensaje, frase o enlace, y consigue tu número de comprador en un lienzo compartido de un millón de píxeles." />
+  <link rel="canonical" href="https://onemillionpixels.site/pixels/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://onemillionpixels.site/pixels/" />
+  <meta property="og:title" content="El Muro // 2026 — One Million Pixels" />
+  <meta property="og:description" content="Compra un píxel por 1€, deja tu marca, y consigue tu número de comprador en el muro compartido de un millón de píxeles." />
+  <meta property="og:image" content="https://onemillionpixels.site/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="El Muro // 2026 — One Million Pixels" />
+  <meta name="twitter:description" content="Compra un píxel por 1€ y deja tu marca en el muro compartido." />
+  <meta name="twitter:image" content="https://onemillionpixels.site/og-image.png" />
+
+  <meta name="theme-color" content="#05070a" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/shared/cyber.css" />
+  <link rel="stylesheet" href="/pixels/style.css" />
+</head>
+<body>
+  <header>
+    <a href="/">⚡ ONE_MILLION_PIXELS</a>
+    <h1 data-i18n-html="pixels.titleHtml"></h1>
+    <p data-i18n-html="pixels.headerTaglineHtml"></p>
+    <div class="lang-toggle">
+      <button data-lang-btn="es">ES</button>
+      <button data-lang-btn="en">EN</button>
+    </div>
+  </header>
+  <div id="sales-banner" class="sales-banner" data-i18n="common.salesComingSoon" hidden></div>
+  <div class="charity-banner" data-i18n="common.charityBanner"></div>
+
+  <div id="toolbar">
+    <div class="toolbar-group">
+      <button id="zoom-out" data-i18n-title="common.zoomOutTitle">−</button>
+      <span id="zoom-level">100%</span>
+      <button id="zoom-in" data-i18n-title="common.zoomInTitle">+</button>
+      <button id="zoom-fit" data-i18n="common.zoomFitLabel" data-i18n-title="common.zoomFitTitle"></button>
+    </div>
+    <div id="selection-readout" class="pill" data-i18n="pixels.noSelection"></div>
+    <div class="pill" id="count-pill">0</div>
+    <div class="pill" id="viewers-pill">🔴 0</div>
+    <p id="status-msg"></p>
+  </div>
+
+  <div id="progress-bar-wrap">
+    <div id="progress-bar-fill"></div>
+  </div>
+
+  <div id="ticker-wrap">
+    <div id="ticker"><span id="ticker-track" data-i18n="pixels.tickerEmpty"></span></div>
+  </div>
+
+  <div id="main-layout">
+    <div id="grid-wrap">
+      <canvas id="grid-canvas"></canvas>
+    </div>
+
+    <aside id="side-panel">
+      <div id="panel-stats">
+        <div class="stat">
+          <span class="stat-label" data-i18n="pixels.statTotalLabel"></span>
+          <span class="stat-value" id="stat-total">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label" data-i18n="pixels.statPercentLabel"></span>
+          <span class="stat-value" id="stat-percent">0.0000%</span>
+        </div>
+      </div>
+      <div id="panel-log-header">
+        <span class="live-dot"></span> <span data-i18n="pixels.liveActivity"></span>
+      </div>
+      <div id="activity-log"></div>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast hidden">
+    <div id="toast-text"></div>
+    <div id="toast-share" class="toast-share"></div>
+  </div>
+
+  <template id="purchase-modal-template">
+    <div class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 data-i18n-html="pixels.modalTitleHtml"></h2>
+        </div>
+        <div id="modal-selection-info" class="pill"></div>
+
+        <div class="modal-row narrow-first">
+          <label><span data-i18n="pixels.emojiLabel"></span>
+            <input type="text" id="modal-emoji" maxlength="8" placeholder="🔥" />
+          </label>
+          <label><span data-i18n="pixels.sloganLabel"></span>
+            <input type="text" id="modal-slogan" maxlength="80" data-i18n-placeholder="pixels.sloganPlaceholder" />
+          </label>
+        </div>
+
+        <label><span data-i18n="pixels.messageLabel"></span>
+          <input type="text" id="modal-message" maxlength="140" data-i18n-placeholder="pixels.messagePlaceholder" />
+        </label>
+
+        <label><span data-i18n="pixels.linkLabel"></span>
+          <input type="url" id="modal-link" placeholder="https://..." />
+        </label>
+
+        <div class="modal-row">
+          <label><span data-i18n="common.emailLabel"></span>
+            <input type="email" id="modal-email" placeholder="tu@email.com" required />
+          </label>
+          <label><span data-i18n="common.countryLabel"></span>
+            <input type="text" id="modal-country" autocomplete="off" data-i18n-placeholder="common.countryPlaceholder" />
+          </label>
+        </div>
+
+        <label><span data-i18n="pixels.imageLabel"></span>
+          <div class="file-picker">
+            <button type="button" class="file-picker-btn" id="modal-file-btn" data-i18n="pixels.imageChoose"></button>
+            <span class="file-picker-name" id="modal-file-name" data-i18n="pixels.imageNone"></span>
+            <input type="file" id="modal-file" accept="image/png,image/jpeg,image/gif,image/webp" hidden />
+          </div>
+        </label>
+
+        <div class="price" id="modal-price"></div>
+        <div class="modal-error hidden" id="modal-error"></div>
+        <div class="actions">
+          <button id="modal-cancel" data-i18n="common.cancel"></button>
+          <button class="primary" id="modal-buy" data-i18n="pixels.buyButton"></button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="/pixels/app.js"></script>
+</body>
+</html>

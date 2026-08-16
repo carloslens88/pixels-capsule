@@ -1,0 +1,21 @@
+#grid-wrap {
+  flex: 1;
+  min-width: 0;
+  max-height: calc(100vh - 130px);
+}
+
+#side-panel {
+  max-height: calc(100vh - 130px);
+}
+
+#grid-canvas {
+  border: 1px solid rgba(0, 255, 242, 0.4);
+  border-radius: 4px;
+  cursor: crosshair;
+  box-shadow: 0 0 40px rgba(255, 0, 212, 0.12), inset 0 0 60px rgba(0, 0, 0, 0.6);
+}
+
+#price-pill {
+  border-color: var(--magenta);
+  color: var(--magenta);
+}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Estadísticas en vivo — One Million Pixels</title>
+  <meta name="description" content="Estadísticas en directo de One Million Pixels: píxeles vendidos, cápsulas lanzadas, países representados y total recaudado." />
+  <meta name="theme-color" content="#05070a" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/shared/cyber.css" />
+  <style>
+    body { padding: 1.5rem; }
+    .wrap { max-width: 560px; margin: 0 auto; }
+    .brand {
+      text-align: center;
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1.25rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .stat-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(0, 255, 242, 0.3);
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat-card .value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--cyan);
+      text-shadow: 0 0 10px rgba(0, 255, 242, 0.4);
+    }
+    .stat-card .label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.3rem;
+    }
+    .stat-card.live .value { color: var(--danger); text-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
+    .stat-card.money .value { color: var(--green); text-shadow: 0 0 10px rgba(57, 255, 20, 0.4); }
+    .updated {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.7rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="brand" href="/" target="_top">⚡ ONE MILLION PIXELS</a>
+    <div class="charity-banner">💚 El 30% de cada compra se destina a las víctimas del terremoto en Venezuela 🇻🇪</div>
+    <div class="grid" style="margin-top: 1rem;">
+      <div class="stat-card">
+        <div class="value" id="stat-pixels">–</div>
+        <div class="label">píxeles vendidos</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-capsules">–</div>
+        <div class="label">cápsulas lanzadas</div>
+      </div>
+      <div class="stat-card money">
+        <div class="value" id="stat-raised">–</div>
+        <div class="label">recaudado</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-countries">–</div>
+        <div class="label">países representados</div>
+      </div>
+      <div class="stat-card live" style="grid-column: 1 / -1;">
+        <div class="value" id="stat-live">–</div>
+        <div class="label">personas en el sitio ahora</div>
+      </div>
+    </div>
+    <div class="updated" id="updated"></div>
+  </div>
+
+  <script type="module">
+    async function refresh() {
+      try {
+        const res = await fetch("/api/stats");
+        const data = await res.json();
+        document.getElementById("stat-pixels").textContent = data.pixelsSold.toLocaleString("es-ES");
+        document.getElementById("stat-capsules").textContent = data.capsulesLaunched.toLocaleString("es-ES");
+        document.getElementById("stat-raised").textContent = `${(data.totalRaisedCents / 100).toLocaleString("es-ES", { minimumFractionDigits: 2 })} €`;
+        document.getElementById("stat-countries").textContent = data.countriesRepresented.toLocaleString("es-ES");
+        document.getElementById("stat-live").textContent = data.liveViewers.toLocaleString("es-ES");
+        document.getElementById("updated").textContent = `actualizado ${new Date().toLocaleTimeString("es-ES")}`;
+      } catch {
+        // Leave last-known values on screen if a poll fails.
+      }
+    }
+    refresh();
+    setInterval(refresh, 30000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cápsulas en Órbita — One Million Pixels</title>
+  <meta name="description" content="Escribe un mensaje, séllalo en una cápsula y lánzalo a un campo orbital compartido para que otros lo encuentren. Parte de One Million Pixels." />
+  <link rel="canonical" href="https://onemillionpixels.site/capsules/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://onemillionpixels.site/capsules/" />
+  <meta property="og:title" content="Cápsulas en Órbita — One Million Pixels" />
+  <meta property="og:description" content="Escribe un mensaje, séllalo en una cápsula y lánzalo a un campo orbital compartido para que otros lo encuentren." />
+  <meta property="og:image" content="https://onemillionpixels.site/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cápsulas en Órbita — One Million Pixels" />
+  <meta name="twitter:description" content="Lanza un mensaje a un campo orbital compartido." />
+  <meta name="twitter:image" content="https://onemillionpixels.site/og-image.png" />
+
+  <meta name="theme-color" content="#05070a" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/shared/cyber.css" />
+  <link rel="stylesheet" href="/capsules/style.css" />
+</head>
+<body>
+  <header>
+    <a href="/">⚡ ONE_MILLION_PIXELS</a>
+    <h1 data-i18n-html="capsules.titleHtml"></h1>
+    <p data-i18n-html="capsules.headerTaglineHtml"></p>
+    <div class="lang-toggle">
+      <button data-lang-btn="es">ES</button>
+      <button data-lang-btn="en">EN</button>
+    </div>
+  </header>
+  <div id="sales-banner" class="sales-banner" data-i18n="common.salesComingSoon" hidden></div>
+  <div class="charity-banner" data-i18n="common.charityBanner"></div>
+
+  <div id="toolbar">
+    <div class="toolbar-group">
+      <button id="zoom-out" data-i18n-title="common.zoomOutTitle">−</button>
+      <span id="zoom-level">100%</span>
+      <button id="zoom-in" data-i18n-title="common.zoomInTitle">+</button>
+      <button id="zoom-fit" data-i18n="common.zoomFitLabel" data-i18n-title="common.zoomFitTitle"></button>
+    </div>
+    <div class="pill" id="price-pill">...</div>
+    <div class="pill" id="viewers-pill">🔴 0</div>
+    <p id="status-msg"></p>
+  </div>
+
+  <div id="main-layout">
+    <div id="grid-wrap">
+      <canvas id="grid-canvas"></canvas>
+    </div>
+
+    <aside id="side-panel">
+      <div id="panel-stats">
+        <div class="stat">
+          <span class="stat-label" data-i18n="capsules.statLaunchedLabel"></span>
+          <span class="stat-value" id="stat-total">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label" data-i18n="capsules.statInvestedLabel"></span>
+          <span class="stat-value" id="stat-invested">0,00 €</span>
+        </div>
+      </div>
+      <div id="panel-log-header">
+        <span class="live-dot"></span> <span data-i18n="capsules.liveSignals"></span>
+      </div>
+      <div id="activity-log"></div>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast hidden">
+    <div id="toast-text"></div>
+    <div id="toast-share" class="toast-share"></div>
+  </div>
+
+  <template id="purchase-modal-template">
+    <div class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 data-i18n-html="capsules.modalTitleHtml"></h2>
+        </div>
+        <label><span data-i18n="capsules.messageLabel"></span>
+          <textarea id="modal-message" maxlength="220" data-i18n-placeholder="capsules.messagePlaceholder" required></textarea>
+        </label>
+        <label><span data-i18n="capsules.linkLabel"></span>
+          <input type="url" id="modal-link" data-i18n-placeholder="capsules.linkPlaceholder" />
+        </label>
+        <div class="modal-row">
+          <label><span data-i18n="common.emailLabel"></span>
+            <input type="email" id="modal-email" placeholder="tu@email.com" required />
+          </label>
+          <label><span data-i18n="common.countryLabel"></span>
+            <input type="text" id="modal-country" autocomplete="off" data-i18n-placeholder="common.countryPlaceholder" />
+          </label>
+        </div>
+        <label class="checkbox-row">
+          <input type="checkbox" id="modal-seal-toggle" />
+          <span data-i18n="capsules.sealToggleLabel"></span>
+        </label>
+        <div class="modal-row" id="modal-seal-fields" hidden>
+          <label><span data-i18n="capsules.sealDeliverAtLabel"></span>
+            <input type="date" id="modal-deliver-at" />
+          </label>
+          <label><span data-i18n="capsules.sealRecipientLabel"></span>
+            <input type="email" id="modal-recipient-email" placeholder="destinatario@email.com" />
+          </label>
+        </div>
+        <p class="hint" id="modal-seal-hint" data-i18n="capsules.sealHint" hidden></p>
+        <div class="price" id="modal-price"></div>
+        <div class="modal-error hidden" id="modal-error"></div>
+        <div class="actions">
+          <button id="modal-cancel" data-i18n="common.cancel"></button>
+          <button class="primary" id="modal-buy" data-i18n="capsules.buyButton"></button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="/capsules/app.js"></script>
+</body>
+</html>

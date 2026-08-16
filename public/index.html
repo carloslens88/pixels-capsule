@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>One Million Pixels — un lienzo compartido de 1.000.000 de píxeles</title>
+  <meta name="description" content="Un lienzo compartido de 1.000.000 de píxeles. Compra un píxel por 1€ y deja tu marca en El Muro // 2026, o lanza una cápsula con tu mensaje a un campo orbital compartido." />
+  <link rel="canonical" href="https://onemillionpixels.site/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://onemillionpixels.site/" />
+  <meta property="og:title" content="One Million Pixels — un lienzo compartido de 1.000.000 de píxeles" />
+  <meta property="og:description" content="Compra un píxel por 1€ y deja tu marca en El Muro // 2026, o lanza una cápsula con tu mensaje a un campo orbital compartido." />
+  <meta property="og:image" content="https://onemillionpixels.site/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="One Million Pixels" />
+  <meta name="twitter:description" content="Un lienzo compartido de 1.000.000 de píxeles. 1€ el píxel." />
+  <meta name="twitter:image" content="https://onemillionpixels.site/og-image.png" />
+
+  <meta name="theme-color" content="#05070a" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "One Million Pixels",
+    "url": "https://onemillionpixels.site/",
+    "description": "Un lienzo compartido de 1.000.000 de píxeles. Compra un píxel por 1€ y deja tu marca."
+  }
+  </script>
+
+  <link rel="stylesheet" href="/shared/cyber.css" />
+  <style>
+    body { overflow-x: hidden; }
+    header { border-bottom: none; box-shadow: none; background: transparent; position: relative; z-index: 2; }
+    #rain { position: fixed; inset: 0; z-index: 0; opacity: 0.5; }
+    main {
+      position: relative;
+      z-index: 2;
+      min-height: calc(100vh - 90px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .glitch {
+      font-size: clamp(2.2rem, 7vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.5rem;
+      color: var(--text);
+      position: relative;
+      text-shadow: 0 0 20px rgba(0, 255, 242, 0.4);
+    }
+    .glitch::before,
+    .glitch::after {
+      content: "ONE MILLION PIXELS";
+      position: absolute;
+      left: 0; top: 0; width: 100%;
+      overflow: hidden;
+      clip-path: inset(0 0 0 0);
+    }
+    .glitch::before {
+      color: var(--cyan);
+      animation: glitch-a 4.5s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      color: var(--magenta);
+      animation: glitch-b 3.7s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-a {
+      0%, 92% { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
+      93% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, 1px); }
+      95% { clip-path: inset(60% 0 10% 0); transform: translate(3px, -1px); }
+      97% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 0); }
+      100% { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
+    }
+    @keyframes glitch-b {
+      0%, 90% { clip-path: inset(95% 0 0 0); transform: translate(0, 0); }
+      91% { clip-path: inset(40% 0 30% 0); transform: translate(3px, 0); }
+      94% { clip-path: inset(5% 0 80% 0); transform: translate(-3px, 1px); }
+      96% { clip-path: inset(70% 0 5% 0); transform: translate(2px, -1px); }
+      100% { clip-path: inset(95% 0 0 0); transform: translate(0, 0); }
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 46ch;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+    .subtitle .k { color: var(--cyan); }
+    .cards {
+      display: flex;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 920px;
+    }
+    .card {
+      background: rgba(11, 15, 22, 0.85);
+      border: 1px solid rgba(0, 255, 242, 0.25);
+      border-radius: 8px;
+      padding: 2rem;
+      width: 320px;
+      text-align: left;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 8px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--accent, var(--cyan)), transparent 60%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.6;
+    }
+    .card.magenta { --accent: var(--magenta); }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent, var(--cyan));
+      box-shadow: 0 0 30px rgba(0, 255, 242, 0.25);
+    }
+    .card.magenta:hover { box-shadow: 0 0 30px rgba(255, 0, 212, 0.3); }
+    .card .glyph { font-size: 2.2rem; }
+    .card h2 {
+      font-size: 1.15rem;
+      margin: 0.75rem 0 0.5rem;
+      color: var(--accent, var(--cyan));
+      letter-spacing: 0.02em;
+    }
+    .card p { color: var(--muted); font-size: 0.85rem; line-height: 1.55; margin: 0; }
+    .card .cta {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: 0.45rem 1rem;
+      border: 1px solid var(--accent, var(--cyan));
+      border-radius: 3px;
+      color: var(--accent, var(--cyan));
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="rain"></canvas>
+  <header>
+    <h1 style="text-shadow:none;color:var(--muted);font-size:0.9rem;">⚡ ONE_MILLION_PIXELS.exe</h1>
+    <div class="lang-toggle">
+      <button data-lang-btn="es">ES</button>
+      <button data-lang-btn="en">EN</button>
+    </div>
+  </header>
+  <div id="sales-banner" class="sales-banner" data-i18n="common.salesComingSoon" hidden></div>
+  <div class="charity-banner" data-i18n="common.charityBanner"></div>
+  <main>
+    <h1 class="glitch">ONE MILLION PIXELS</h1>
+    <p class="subtitle" data-i18n-html="landing.subtitleHtml"></p>
+    <div class="pill" id="viewers-pill" style="margin-bottom: 2rem;">🔴 0</div>
+    <div class="cards">
+      <a class="card" href="/pixels/">
+        <div class="glyph">🧱</div>
+        <h2 data-i18n="landing.wallTitle"></h2>
+        <p data-i18n="landing.wallDesc"></p>
+        <span class="cta" data-i18n="landing.wallCta"></span>
+      </a>
+      <a class="card magenta" href="/capsules/">
+        <div class="glyph">🛰️</div>
+        <h2 data-i18n="landing.capsulesTitle"></h2>
+        <p data-i18n="landing.capsulesDesc"></p>
+        <span class="cta" data-i18n="landing.capsulesCta"></span>
+      </a>
+    </div>
+  </main>
+  <footer>
+    <span data-i18n-html="landing.footerHtml"></span>
+    &nbsp;·&nbsp;
+    <a href="/stats/" data-i18n="landing.statsLink" style="color: var(--muted);"></a>
+  </footer>
+
+  <script type="module" src="/shared/i18n.js"></script>
+  <script type="module">
+    import { startPresence } from "/shared/presence.js";
+    import { fetchConfig } from "/shared/api.js";
+    const viewersPill = document.getElementById("viewers-pill");
+    startPresence((count) => {
+      viewersPill.textContent = `🔴 ${count}`;
+    });
+    fetchConfig().then((grid) => {
+      if (!grid.salesEnabled) document.getElementById("sales-banner").hidden = false;
+    });
+  </script>
+  <script>
+    const canvas = document.getElementById("rain");
+    const ctx = canvas.getContext("2d");
+    let cols, drops;
+    const chars = "01アイウエオカキクケコ$#%&+=";
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      cols = Math.floor(canvas.width / 18);
+      drops = new Array(cols).fill(0).map(() => Math.random() * -40);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    function frame() {
+      ctx.fillStyle = "rgba(5, 7, 10, 0.12)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "14px monospace";
+      for (let i = 0; i < cols; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * 18;
+        const y = drops[i] * 18;
+        ctx.fillStyle = Math.random() < 0.02 ? "#ff00d4" : "rgba(0, 255, 242, 0.6)";
+        ctx.fillText(char, x, y);
+        if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  </script>
+</body>
+</html>

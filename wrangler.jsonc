@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "one-million-pixels",
+  "account_id": "ab30bc7ce6291314193aecca239f1f11",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./public"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    { "pattern": "onemillionpixels.site", "custom_domain": true },
+    { "pattern": "www.onemillionpixels.site", "custom_domain": true }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "one-million-pixels-db",
+      "database_id": "4d57a60c-a0d3-46d2-8afc-49b250b982b3",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "IMAGES",
+      "bucket_name": "one-million-pixels-images"
+    }
+  ],
+  "send_email": [
+    { "name": "EMAIL" }
+  ],
+  "triggers": {
+    "crons": ["0 * * * *"]
+  },
+  "vars": {
+    "GRID_WIDTH": "1250",
+    "GRID_HEIGHT": "800",
+    "PRICE_PER_PIXEL_CENTS": "100",
+    "MIN_BLOCK_PIXELS": "1",
+    "PUBLIC_SITE_URL": "https://onemillionpixels.site",
+    "SALES_ENABLED": "false"
+  }
+}
